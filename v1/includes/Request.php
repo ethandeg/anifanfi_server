@@ -5,10 +5,12 @@ class Request{
     public $body;
     public $url;
     public $params;
+    public $method;
     function __construct(){
         $this->url = $this->createUrl();
         $this->body = $this->getBody();
         $this->query=$_GET;
+        $this->method = $_SERVER['REQUEST_METHOD'];
     }
 
     private function createUrl(){
@@ -18,11 +20,6 @@ class Request{
         return $url;
     }
 
-    public function checkUrlParamsExist(){
-        $paramData = [];
-        $params = explode("/", $this->url);
-        
-    }
 
     private function getBody(){
         $rawData = file_get_contents("php://input");
@@ -34,5 +31,9 @@ class Request{
         }
         return null;
 
+    }
+
+    public function setParams($arr){
+        $this->params = $arr;
     }
 }
