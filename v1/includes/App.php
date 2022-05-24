@@ -55,12 +55,14 @@ class App {
         $realRoute = explode('/',$this->req->url);
         $params = [];
         if(count($appRoute) !== count($realRoute)){
+            $params = [];
             return false;
         }
         for($i = 0; $i < count($appRoute); $i++){
             $appParam = $appRoute[$i];
             $realParam = $realRoute[$i];
             if($appParam !== $realParam && $appParam[0] !== ":"){
+                $params = [];
                 return false;
             }
             if($appParam && $appParam[0] === ':'){
