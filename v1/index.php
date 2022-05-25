@@ -16,12 +16,15 @@ try {
     $response->send();
     exit;
 }
+$App->use('/index',function(){
+    echo "hello, world";
+});
 
 $App->get("/index/1/johnny", function($req, $res){
     echo "supposed to not work";
 });
 
 $App->get("/index/:id/:name", function($req,$res){
-    print_r($req->params);
+    $res->send();
 });
 exit;

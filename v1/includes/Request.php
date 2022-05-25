@@ -36,4 +36,9 @@ class Request{
     public function setParams($arr){
         $this->params = $arr;
     }
+
+
+    public function getUrl(){
+        return $this->url;
+    }
 }

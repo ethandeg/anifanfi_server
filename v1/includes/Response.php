@@ -2,10 +2,10 @@
 class ResponseException extends Exception {}
 
 class Response {
-    private $success;
-    private $httpStatusCode;
+    private $success = true;
+    private $httpStatusCode = 200;
     private $messages = array();
-    private $data;
+    private $data = array();
     private $toCache = false;
     private $responseData = array();
 
