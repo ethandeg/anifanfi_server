@@ -5,7 +5,7 @@ class App {
     private $req;
     private $res;
     private $stack = array();
-    private $routeCalled = false;
+    // private $routeCalled = false;
     function __construct(){
         $this->req = new Request();
         $this->res = new Response();
@@ -68,12 +68,11 @@ class App {
 
     private function call($func){
         //most likely remove this flag
-        if(!$this->routeCalled){
-            $this->setRouteCalled();
-            $this->callStack();
-            $func($this->req, $this->res);
-            exit;
-        }
+        // if(!$this->routeCalled){
+            // $this->setRouteCalled();
+        $this->callStack();
+        $func($this->req, $this->res);
+        // }
 
     }
 
@@ -113,11 +112,11 @@ class App {
             $handle = $func['handle'];
             $routeLen = strlen($route);
             if($func['route'] === ""){
-                $handle();
+                $handle($this->req, $this->res);
             }
 
             elseif(substr($callRoute,0,$routeLen) === $route){
-                $handle();
+                $handle($this->req, $this->res);
             }
         }
     }
