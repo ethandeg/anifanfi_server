@@ -1,6 +1,6 @@
 <?php
-require_once("Request.php");
-require_once("Response.php");
+require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/includes/Request.php");
+require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/includes/Response.php");
 class App {
     private $req;
     private $res;
