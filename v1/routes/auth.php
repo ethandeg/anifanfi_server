@@ -1,9 +1,15 @@
 <?php
 require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/model/User.php");
+
 $App->get("/user/:username", function($req, $res){
-    $username = $req->params['username'];
-    $user = User::getUser($username, 'username');
-    $res->json($user);
+    try {
+        $username = $req->params['username'];
+        $user = User::getUser($username, 'username');
+        $res->json($user);
+    } catch(Exception $e){
+        $res->sendError($e);
+    }
+
 });
 
 $App->post("/user", function($req,$res){

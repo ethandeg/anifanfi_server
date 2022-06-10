@@ -4,6 +4,7 @@
 require_once($_SERVER['REDIRECT_ROOT_DIREC'] . "/connections/DB.php");
 require_once($_SERVER['REDIRECT_ROOT_DIREC'] . "/helpers/MySqlHelpers.php");
 require_once($_SERVER['REDIRECT_ROOT_DIREC'] . "/helpers/ArrayMethods.php");
+require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/includes/AppException.php");
 
 class User {
 
@@ -16,6 +17,9 @@ class User {
             $query = "SELECT * FROM users WHERE username = :username";
             $result = DB::query($readDB,$query,['username' => $identifier]);
             $user = $result->fetch(PDO::FETCH_ASSOC);
+            if(!$user){
+                throw new BadRequestException("Cannot find user with username of $identifier");
+            }
             return $user;
         }
         // else if($type === 'id'){

@@ -24,4 +24,6 @@ $App->get("/index/:id/:name", function($req,$res){
 $App->get("/index/1/johnny", function($req, $res){
     echo "supposed to not work";
 });
+
+
 exit;
