@@ -6,11 +6,14 @@ class Request{
     public $url;
     public $params;
     public $method;
+    public $locals = [];
+    public $headers;
     function __construct(){
         $this->url = $this->createUrl();
         $this->body = $this->getBody();
         $this->query=$_GET;
         $this->method = $_SERVER['REQUEST_METHOD'];
+        $this->headers = getallheaders();
     }
 
     private function createUrl(){
@@ -41,4 +44,7 @@ class Request{
     public function getUrl(){
         return $this->url;
     }
+
+    
+
 }

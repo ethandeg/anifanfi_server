@@ -10,36 +10,67 @@ class App {
         $this->req = new Request();
         $this->res = new Response();
     }
-    public function get($route, $callBack){
+    public function get($route, ...$callBacks){
         if($this->req->method === 'GET' && $this->checkRouteMatch($route)){
-            //update this to pass to callstack
-            //only pass to callstack if !routecalled
-            //set routedcalled = true
-            $this->call($callBack);
+            $callNum = count($callBacks);
+            for($i = 0; $i<$callNum; $i++){
+                if($i === $callNum -1){
+                    $this->call($callBacks[$i]);
+                } else {
+                    $this->use($callBacks[$i]);
+                }
+            }
         }
-        
     }
-    public function post($route, $callBack){
+    public function post($route, ...$callBacks){
         if($this->req->method === 'POST' && $this->checkRouteMatch($route)){
-            $this->call($callBack);
+                        $callNum = count($callBacks);
+            for($i = 0; $i<$callNum; $i++){
+                if($i === $callNum -1){
+                    $this->call($callBacks[$i]);
+                } else {
+                    $this->use($callBacks[$i]);
+                }
+            }
         }
         
     }
-    public function patch($route, $callBack){
+    public function patch($route, ...$callBacks){
         if($this->req->method === 'PATCH' && $this->checkRouteMatch($route)){
-            $this->call($callBack);
+                        $callNum = count($callBacks);
+            for($i = 0; $i<$callNum; $i++){
+                if($i === $callNum -1){
+                    $this->call($callBacks[$i]);
+                } else {
+                    $this->use($callBacks[$i]);
+                }
+            }
         }
         
     }
-    public function delete($route, $callBack){
+    public function delete($route, ...$callBacks){
         if($this->req->method === 'DELETE' && $this->checkRouteMatch($route)){
-            $this->call($callBack);
+                        $callNum = count($callBacks);
+            for($i = 0; $i<$callNum; $i++){
+                if($i === $callNum -1){
+                    $this->call($callBacks[$i]);
+                } else {
+                    $this->use($callBacks[$i]);
+                }
+            }
         }
         
     }
-    public function put($route, $callBack){
+    public function put($route, ...$callBacks){
         if($this->req->method === 'PUT' && $this->checkRouteMatch($route)){
-            $this->call($callBack);
+                        $callNum = count($callBacks);
+            for($i = 0; $i<$callNum; $i++){
+                if($i === $callNum -1){
+                    $this->call($callBacks[$i]);
+                } else {
+                    $this->use($callBacks[$i]);
+                }
+            }
         }
         
     }

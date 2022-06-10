@@ -1,8 +1,9 @@
 <?php
 require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/model/User.php");
 require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/includes/Token.php");
+require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/middleware/AuthMiddleware.php");
 
-$App->get("/user/:username", function($req, $res){
+$App->get("/user/:username",function($req, $res){
     try {
         $username = $req->params['username'];
         $user = User::getUser($username, 'username');
