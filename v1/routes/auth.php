@@ -1,5 +1,6 @@
 <?php
 require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/model/User.php");
+require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/includes/Token.php");
 
 $App->get("/user/:username", function($req, $res){
     try {
@@ -14,6 +15,31 @@ $App->get("/user/:username", function($req, $res){
 
 $App->post("/user", function($req,$res){
     // extract($req->body);
-    $id = User::createUser($req->body);
-    $res->json(['id' => $id]);
+    try {
+        $user = User::createUser($req->body);
+        extract($user);
+        $token = Token::createToken(['username' => $username, 'id' => $id]);
+        $user['_token'] = $token;
+        unset($user['password']);
+        $res->addMessage("User successfully created");
+        $res->setStatus(201);
+        $res->json($user);
+    } catch(Exception $e){
+        $res->sendError($e);
+    }
+
+});
+
+$App->post("/token", function($req, $res){
+    try {
+        $user = User::loginUser($req->body);
+        extract($user);
+        $token = Token::createToken(['username' => $username, 'id' => $id]);
+        $user['_token'] = $token;
+        unset($user['password']);
+        $res->addMessage("Logged in Succesfully");
+        $res->json($user);
+    } catch(Exception $e){
+        $res->sendError($e);
+    }
 });

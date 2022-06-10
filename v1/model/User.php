@@ -1,6 +1,5 @@
 <?php
-// print_r($_SERVER);
-// exit;
+
 require_once($_SERVER['REDIRECT_ROOT_DIREC'] . "/connections/DB.php");
 require_once($_SERVER['REDIRECT_ROOT_DIREC'] . "/helpers/MySqlHelpers.php");
 require_once($_SERVER['REDIRECT_ROOT_DIREC'] . "/helpers/ArrayMethods.php");
@@ -22,9 +21,15 @@ class User {
             }
             return $user;
         }
-        // else if($type === 'id'){
-
-        // }
+        else if($type === 'id'){
+            $query = "SELECT * FROM users WHERE id = :id";
+            $result = DB::query($readDB,$query,['id' => $identifier]);
+            $user = $result->fetch(PDO::FETCH_ASSOC);
+            if(!$user){
+                throw new BadRequestException("Cannot find user with id of $identifier");
+            }
+            return $user;
+        }
     }
 
     static public function createUser($userInfo){
@@ -37,6 +42,17 @@ class User {
         if(!$id){
             throw new Exception("no id");
         }
-        return $id;
+        $user = self::getUser($id, 'id');
+        return $user;
+    }
+
+    static public function loginUser($userInfo){
+        extract($userInfo);
+        $user = self::getUser($username, 'username');
+        $hashPass = $user['password'];
+        if(!password_verify($password,$hashPass)){
+            throw new BadRequestException("Invalid login credentials");
+        }
+        return $user;
     }
 }
