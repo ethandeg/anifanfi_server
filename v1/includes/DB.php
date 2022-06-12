@@ -24,7 +24,7 @@
         public static function query($db,$query, $vals){
             $vars = [];
             $match = false;
-            $currIdx;
+            $currIdx =null;
             $counter = 0;
             for($i=0; $i<strlen($query);$i++){
                 if($match){

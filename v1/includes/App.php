@@ -135,7 +135,7 @@ class App {
         return true;
     }
 
-    private function callStack(){
+    public function callStack(){
         $callRoute = $this->req->getUrl();
         foreach($this->stack as $func){
             //update this to pass in req,res,next params

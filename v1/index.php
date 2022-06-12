@@ -1,10 +1,11 @@
 <?php 
 require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/includes/App.php");
+require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/includes/Logger.php");
 require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/middleware/AuthMiddleware.php");
-
+require_once($_SERVER['REDIRECT_ROOT_DIREC']."/middleware/cors.php");
 // require_once("includes/Request.php");
 $App = new App();
-
+$App->use($cors);
 
 $App->use($grabJWT);
 
@@ -29,5 +30,5 @@ $App->get("/index/1/johnny", function($req, $res){
     echo "supposed to not work";
 });
 
-
+$App->callStack();
 exit;
