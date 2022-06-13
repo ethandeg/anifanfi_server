@@ -21,7 +21,7 @@
             return self::$readDBConnection;
         }
 
-        public static function query($db,$query, $vals){
+        public static function query($db,$query, $vals=[]){
             $vars = [];
             $match = false;
             $currIdx =null;

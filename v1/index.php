@@ -10,6 +10,8 @@ $App->use($cors);
 $App->use($grabJWT);
 
 require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/routes/auth.php");
+require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/routes/player.php");
+require_once($_SERVER["REDIRECT_ROOT_DIREC"]."/routes/class.php");
 // $App->use('/index',function($req, $res){
 //     echo "hello, world";
 // });

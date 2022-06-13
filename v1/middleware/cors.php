@@ -3,6 +3,7 @@ $cors = function($req, $res){
     if($req->method === 'OPTIONS'){
         try {
             $res = new Response();
+            header('Access-Control-Allow-Origin: "*"');
             header("Access-Control-Allow-Methods: POST, OPTIONS, GET, DELETE, PUT, PATCH");
             header("Access-Control-Allow-Headers: Content-Type, authorization, content-type");
             header("Access-Control-Max-Age: 86400");

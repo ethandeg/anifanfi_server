@@ -82,7 +82,7 @@ class Response {
         } else {
             header('Cache-control: no-cache, no-store');
         }
-        if(!$e->status){
+        if(!isset($e->status)){
             $this->setStatus(500);
             http_response_code(500);
             $this->responseData['statusCode'] = 500;
@@ -92,8 +92,14 @@ class Response {
             $this->responseData['statusCode'] = $e->status;
         }
         $this->setSuccess(false);
-        $this->addMessage($e->message);
-        $this->setData($e->message);
+        if(!isset($e->message)){
+            $this->addMessage($e->getMessage());
+            $this->setData($e->getMessage());
+        } else {
+            $this->addMessage($e->message);
+            $this->setData($e->message);
+        }
+
         $this->responseData['messages'] = $this->messages;
         $this->responseData['data'] = $this->data;
         $this->responseData['statusCode'] = $this->httpStatusCode;
